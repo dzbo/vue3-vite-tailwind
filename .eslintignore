@@ -1,0 +1,3 @@
+src/typed-router.d.ts
+tsconfig.node.json
+tailwind.config.cjs
