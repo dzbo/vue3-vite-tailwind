@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BeakerIcon } from '@heroicons/vue/outline'
+import { BeakerIcon } from '@heroicons/vue/24/solid'
 </script>
 
 <template>
