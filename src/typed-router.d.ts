@@ -35,19 +35,9 @@ import type {
 
 declare module 'vue-router/auto/routes' {
   export interface RouteNamedMap {
-    '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>
-    '/[...404]': RouteRecordInfo<
-      '/[...404]',
-      '/:404(.*)',
-      { 404: ParamValue<true> },
-      { 404: ParamValue<false> }
-    >
-    '/about': RouteRecordInfo<
-      '/about',
-      '/about',
-      Record<never, never>,
-      Record<never, never>
-    >
+    '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
+    '/[...404]': RouteRecordInfo<'/[...404]', '/:404(.*)', { 404: ParamValue<true> }, { 404: ParamValue<false> }>,
+    '/about': RouteRecordInfo<'/about', '/about', Record<never, never>, Record<never, never>>,
   }
 }
 
@@ -60,39 +50,29 @@ declare module 'vue-router/auto' {
    * Type safe version of `RouteLocationNormalized` (the type of `to` and `from` in navigation guards).
    * Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocationNormalized<
-    Name extends keyof RouteNamedMap = keyof RouteNamedMap
-  > = RouteLocationNormalizedTypedList<RouteNamedMap>[Name]
+  export type RouteLocationNormalized<Name extends keyof RouteNamedMap = keyof RouteNamedMap> = RouteLocationNormalizedTypedList<RouteNamedMap>[Name]
 
   /**
    * Type safe version of `RouteLocationNormalizedLoaded` (the return type of `useRoute()`).
    * Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocationNormalizedLoaded<
-    Name extends keyof RouteNamedMap = keyof RouteNamedMap
-  > = RouteLocationNormalizedLoadedTypedList<RouteNamedMap>[Name]
+  export type RouteLocationNormalizedLoaded<Name extends keyof RouteNamedMap = keyof RouteNamedMap> = RouteLocationNormalizedLoadedTypedList<RouteNamedMap>[Name]
 
   /**
    * Type safe version of `RouteLocationResolved` (the returned route of `router.resolve()`).
    * Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocationResolved<
-    Name extends keyof RouteNamedMap = keyof RouteNamedMap
-  > = RouteLocationResolvedTypedList<RouteNamedMap>[Name]
+  export type RouteLocationResolved<Name extends keyof RouteNamedMap = keyof RouteNamedMap> = RouteLocationResolvedTypedList<RouteNamedMap>[Name]
 
   /**
    * Type safe version of `RouteLocation` . Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocation<
-    Name extends keyof RouteNamedMap = keyof RouteNamedMap
-  > = RouteLocationTypedList<RouteNamedMap>[Name]
+  export type RouteLocation<Name extends keyof RouteNamedMap = keyof RouteNamedMap> = RouteLocationTypedList<RouteNamedMap>[Name]
 
   /**
    * Type safe version of `RouteLocationRaw` . Allows passing the name of the route to be passed as a generic.
    */
-  export type RouteLocationRaw<
-    Name extends keyof RouteNamedMap = keyof RouteNamedMap
-  > =
+  export type RouteLocationRaw<Name extends keyof RouteNamedMap = keyof RouteNamedMap> =
     | RouteLocationAsString<RouteNamedMap>
     | RouteLocationAsRelativeTypedList<RouteNamedMap>[Name]
     | RouteLocationAsPathTypedList<RouteNamedMap>[Name]
@@ -100,47 +80,39 @@ declare module 'vue-router/auto' {
   /**
    * Generate a type safe params for a route location. Requires the name of the route to be passed as a generic.
    */
-  export type RouteParams<Name extends keyof RouteNamedMap> =
-    RouteNamedMap[Name]['params']
+  export type RouteParams<Name extends keyof RouteNamedMap> = RouteNamedMap[Name]['params']
   /**
    * Generate a type safe raw params for a route location. Requires the name of the route to be passed as a generic.
    */
-  export type RouteParamsRaw<Name extends keyof RouteNamedMap> =
-    RouteNamedMap[Name]['paramsRaw']
+  export type RouteParamsRaw<Name extends keyof RouteNamedMap> = RouteNamedMap[Name]['paramsRaw']
 
   export function useRouter(): RouterTyped
-  export function useRoute<
-    Name extends keyof RouteNamedMap = keyof RouteNamedMap
-  >(name?: Name): RouteLocationNormalizedLoadedTypedList<RouteNamedMap>[Name]
+  export function useRoute<Name extends keyof RouteNamedMap = keyof RouteNamedMap>(name?: Name): RouteLocationNormalizedLoadedTypedList<RouteNamedMap>[Name]
 
   export const useLink: UseLinkFnTyped<RouteNamedMap>
 
-  export function onBeforeRouteLeave(
-    guard: NavigationGuard<RouteNamedMap>
-  ): void
-  export function onBeforeRouteUpdate(
-    guard: NavigationGuard<RouteNamedMap>
-  ): void
+  export function onBeforeRouteLeave(guard: NavigationGuard<RouteNamedMap>): void
+  export function onBeforeRouteUpdate(guard: NavigationGuard<RouteNamedMap>): void
 
   export const RouterLink: RouterLinkTyped<RouteNamedMap>
-
+  
   // Experimental Data Fetching
 
   export function defineLoader<
     P extends Promise<any>,
     Name extends keyof RouteNamedMap = keyof RouteNamedMap,
-    isLazy extends boolean = false
+    isLazy extends boolean = false,
   >(
     name: Name,
     loader: (route: RouteLocationNormalizedLoaded<Name>) => P,
-    options?: _DefineLoaderOptions<isLazy>
+    options?: _DefineLoaderOptions<isLazy>,
   ): _DataLoader<Awaited<P>, isLazy>
   export function defineLoader<
     P extends Promise<any>,
-    isLazy extends boolean = false
+    isLazy extends boolean = false,
   >(
     loader: (route: RouteLocationNormalizedLoaded) => P,
-    options?: _DefineLoaderOptions<isLazy>
+    options?: _DefineLoaderOptions<isLazy>,
   ): _DataLoader<Awaited<P>, isLazy>
 
   export {

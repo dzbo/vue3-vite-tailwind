@@ -15,3 +15,6 @@ tsconfig.json
 package-lock.json
 .output
 coverage
+
+auto-imports.d.ts
+src/typed-router.d.ts
